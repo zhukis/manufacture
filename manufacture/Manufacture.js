@@ -1,22 +1,3 @@
-function Observable() {
-    this.isChanged = false;
-}
-
-function ManufactureObservable() {
-    Observable.apply(this, arguments);
-    this.isAddedActivities = false;
-    this.isNewProductCreated = false;
-    this.newActivities = [];
-}
-
-ManufactureObservable.prototype = Object.create(Observable.prototype);
-ManufactureObservable.prototype.constructor = Manufacture;
-ManufactureObservable.prototype.getNewActivities = function () {
-    this.newActivities.forEach(function (item) {
-        console.log(item);
-    });
-};
-
 function Manufacture() {
     this._eventHandlers = {}
 }
