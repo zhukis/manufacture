@@ -36,9 +36,32 @@ function ChocolatedCheese(baseProductName, baseProductAmount, cottageCheeseAmoun
 ChocolatedCheese.prototype = Object.create(CottageCheese.prototype);
 ChocolatedCheese.prototype.constructor = ChocolatedCheese;
 
+function Observable() {
+    this.isChanged = false;
+}
+
+function ManufactureObservable() {
+    Observable.apply(this, arguments);
+    this.isAddedActivities = false;
+    this.isNewProductCreated = false;
+    this.newActivities = [];
+}
+
+ManufactureObservable.prototype = Object.create(Observable.prototype);
+ManufactureObservable.prototype.constructor = Manufacture;
+ManufactureObservable.prototype.getNewActivities = function () {
+    this.newActivities.forEach(function (item) {
+        console.log(item);
+    });
+};
+
+
 function Manufacture() {
     this._eventHandlers = {}
 }
+
+Manufacture.prototype = Object.create(ManufactureObservable.prototype);
+Manufacture.prototype.constructor = ManufactureObservable;
 
 Manufacture.prototype.createActivity = function (activityName) {
     if (!this._eventHandlers) this._eventHandlers = {};
