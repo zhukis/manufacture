@@ -15,7 +15,7 @@ Manufacture.prototype.createActivity = function (activityName) {
     }
 
     var self = this;
-    Array.prototype.slice.call(arguments, 1).forEach(function (item) {
+    _.forEach(Array.prototype.slice.call(arguments, 1), function (item) {
         self._eventHandlers[activityName]["actions"].push(item);
     });
 
@@ -26,7 +26,7 @@ Manufacture.prototype.run = function (activityName, baseProduct) {
 
     var obj = baseProduct;
     var self = this;
-    this._eventHandlers[activityName]["actions"].forEach(function (item) {
+    _.forEach(this._eventHandlers[activityName]["actions"], function (item) {
         obj = item.call(self, obj);
     });
 

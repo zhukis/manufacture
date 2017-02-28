@@ -8,7 +8,7 @@ function ManufactureObservable() {
 ManufactureObservable.prototype = Object.create(Observable.prototype);
 ManufactureObservable.prototype.constructor = ManufactureObservable;
 ManufactureObservable.prototype.getNewActivities = function () {
-    this.newActivities.forEach(function (item) {
+    _.forEach(this.newActivities, function (item) {
         console.log(item);
     });
 };
