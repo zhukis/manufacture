@@ -30,3 +30,9 @@ var manufactureObserver = new ManufactureObserver();
 manufactureObserver.subscribe(manufacture);
 manufactureObserver.doIfChanged();
 manufactureObserver.doIfChanged();
+
+describe("Jasmine", function() {
+    it("makes testing JavaScript awesome!", function() {
+        expect(true).toBe(true);
+    });
+});
