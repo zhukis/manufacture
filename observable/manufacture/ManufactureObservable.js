@@ -1,14 +1,17 @@
 function ManufactureObservable() {
     Observable.apply(this, arguments);
-    this.isAddedActivities = false;
-    this.isNewProductCreated = false;
-    this.newActivities = [];
+
+    this.isAddedNewActivities = false;
 }
 
-ManufactureObservable.prototype = Object.create(Observable.prototype);
-ManufactureObservable.prototype.constructor = ManufactureObservable;
-ManufactureObservable.prototype.getNewActivities = function () {
-    _.forEach(this.newActivities, function (item) {
-        console.log(item);
-    });
+ManufactureObservable.prototype = {
+    constructor: ManufactureObservable,
+
+    makeViewedActivities: function () {
+        this.isAddedNewActivities = false;
+        console.log("set unviewed");
+        Observable.prototype.makeViewed.call(this);
+    }
 };
+
+ManufactureObservable.prototype = _.assign(inherit(Observable.prototype), ManufactureObservable.prototype);

@@ -25,3 +25,8 @@ manufacture.createActivity(activityName, step1GlaszedCurd, step2GlaszedCurd);
 
 var milk = new BaseProduct("Milk", 100);
 manufacture.run(activityName, milk);
+
+var manufactureObserver = new ManufactureObserver();
+manufactureObserver.subscribe(manufacture);
+manufactureObserver.doIfChanged();
+manufactureObserver.doIfChanged();

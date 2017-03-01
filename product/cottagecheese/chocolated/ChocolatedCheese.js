@@ -1,5 +1,6 @@
 function ChocolatedCheese(baseProductName, baseProductAmount, cottageCheeseAmount, chocolateCheeseAmount) {
     CottageCheese.call(this, baseProductName, baseProductAmount, cottageCheeseAmount);
+
     this.amount = chocolateCheeseAmount;
 }
 

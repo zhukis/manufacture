@@ -1,3 +1,12 @@
 function Observable() {
-    this.isChanged = false;
+    this.isChanged = true;
 }
+
+Observable.prototype = {
+    constructor: Observable,
+
+    makeViewed: function () {
+        this.isChanged = false;
+        console.log("set unchanged");
+    }
+};
