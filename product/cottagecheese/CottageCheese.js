@@ -12,12 +12,4 @@ CottageCheese.prototype = {
     }
 };
 
-// var proto = Object.create(BaseProduct.prototype);
-// CottageCheese.prototype = _.assign({}, proto, CottageCheese.prototype);
-// debugger;
-
-CottageCheese.prototype = Object.create(BaseProduct.prototype);
-CottageCheese.prototype.constructor = CottageCheese;
-CottageCheese.prototype.getAmount = function () {
-    return this.amount;
-};
+CottageCheese.prototype = _.assign(inherit(BaseProduct.prototype), CottageCheese.prototype);
