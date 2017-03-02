@@ -1,4 +1,4 @@
-describe("A spec using for checking observable objects", function () {
+describe("A spec using for checking observer objects", function () {
 
     var observer;
 
