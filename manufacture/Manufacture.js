@@ -1,9 +1,11 @@
 function Manufacture() {
+    Observable.apply(this, arguments);
+
     this._eventHandlers = {}
 }
 
 Manufacture.prototype = {
-    constructor: ManufactureObservable,
+    constructor: Observable,
 
     createActivity: function (activityName) {
         if (!this._eventHandlers) this._eventHandlers = {};
@@ -12,10 +14,9 @@ Manufacture.prototype = {
             this._eventHandlers[activityName] = {};
             this._eventHandlers[activityName]["productAmount"] = 0;
             this._eventHandlers[activityName]["actions"] = [];
-            this.isAddedNewActivities = true;
+            this.publish("Manufacture" + activityName + " created");
         }
 
-        this.isChanged = true;
         var self = this;
         _.forEach(Array.prototype.slice.call(arguments, 1), function (item) {
             self._eventHandlers[activityName]["actions"].push(item);
@@ -25,6 +26,7 @@ Manufacture.prototype = {
     run: function (activityName, baseProduct) {
         if (!(baseProduct instanceof BaseProduct)) throw new TypeError("Invalid object type");
 
+        this.publish("Manufacture" + activityName + " started at " + new Date());
         var obj = baseProduct;
         var self = this;
         _.forEach(this._eventHandlers[activityName]["actions"], function (item) {
@@ -32,7 +34,9 @@ Manufacture.prototype = {
         });
 
         this._eventHandlers[activityName]["productAmount"]++;
+        this.publish("Manufacture" + activityName + " finished at " + new Date());
+        this.publish("Amount of product in " + activityName + " is " + this._eventHandlers[activityName]["productAmount"]);
     }
 };
 
-Manufacture.prototype = _.assign(inherit(ManufactureObservable.prototype), Manufacture.prototype);
+Manufacture.prototype = inherit(Observable.prototype, Manufacture.prototype);

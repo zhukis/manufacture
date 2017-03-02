@@ -11,4 +11,4 @@ ChocolatedCheese.prototype = {
     return this.amount;
 }};
 
-ChocolatedCheese.prototype = _.assign(inherit(CottageCheese.prototype), ChocolatedCheese.prototype);
+ChocolatedCheese.prototype = inherit(CottageCheese.prototype, ChocolatedCheese.prototype);

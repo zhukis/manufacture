@@ -12,4 +12,4 @@ CottageCheese.prototype = {
     }
 };
 
-CottageCheese.prototype = _.assign(inherit(BaseProduct.prototype), CottageCheese.prototype);
+CottageCheese.prototype = inherit(BaseProduct.prototype, CottageCheese.prototype);

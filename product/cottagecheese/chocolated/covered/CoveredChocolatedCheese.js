@@ -16,4 +16,4 @@ CoveredChocolatedCheese.prototype = {
     }
 };
 
-CoveredChocolatedCheese.prototype = _.assign(inherit(ChocolatedCheese.prototype), CoveredChocolatedCheese.prototype);
+CoveredChocolatedCheese.prototype = inherit(ChocolatedCheese.prototype, CoveredChocolatedCheese.prototype);

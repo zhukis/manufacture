@@ -14,6 +14,19 @@
         }
     };
 
+    helper.some = function (arr, callback) {
+        if (!Array.prototype.some) {
+            for (var i = 0; i < arr.length; i++) {
+                if ( callback(arr[i], i, arr) ) return true;
+            }
+
+            return false;
+
+        } else {
+            arr.some(callback);
+        }
+    };
+
     helper.assign = function (target) {
         if (!Object.assign) {
             if (target === undefined || target === null) {
