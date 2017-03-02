@@ -19,7 +19,6 @@ Observable.prototype = {
     unsubscribe: function (observer) {
         if ( !(observer instanceof Observer) ) throw new TypeError();
 
-        // FIXME Get rid of for
         for (var i = 0; i < this.subscribers.length; i++) {
             if (this.subscribers[i] === observer) {
                 this.subscribers.splice(i, 1);
