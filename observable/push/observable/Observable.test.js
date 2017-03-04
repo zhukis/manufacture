@@ -54,22 +54,21 @@ describe("A spec using for checking observable objects", function () {
         var observer = new Observer();
 
         spyOn(observable, 'publish').and.callThrough();
-        spyOn(observable, 'unsubscribe').and.callThrough();
+        spyOn(observable, 'unsubscribe');
         spyOn(observer, 'add').and.callThrough();
         spyOn(observer, 'showStatistics');
 
         observable.subscribe(observer);
         observable.publish("test");
         observer.showStatistics();
-        // expect(observer.statistics).toEqual(jasmine.arrayContaining(["test"]));
+        expect(observer.statistics).toEqual(jasmine.arrayContaining(["test"]));
         observable.unsubscribe();
-        // expect(observer.statistics).toEqual(jasmine.arrayContaining([]));
+        expect(observer.statistics).toEqual(jasmine.arrayContaining([]));
 
         expect(observable.publish).toHaveBeenCalled();
         expect(observable.publish).toHaveBeenCalledWith("test");
         expect(observer.showStatistics).toHaveBeenCalled();
         expect(observable.unsubscribe).toHaveBeenCalled();
-        // expect(observable.subscribers).toEqual(jasmine.arrayContaining([]));
         expect(observer.add).toHaveBeenCalled();
 
     });

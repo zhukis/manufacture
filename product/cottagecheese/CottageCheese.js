@@ -1,14 +1,14 @@
 function CottageCheese(baseProductName, baseProductAmount, cottageCheeseAmount) {
     BaseProduct.call(this, baseProductName, baseProductAmount);
 
-    this.amount = cottageCheeseAmount;
+    this.cottageCheeseAmount = cottageCheeseAmount;
 }
 
 CottageCheese.prototype = {
     constructor: CottageCheese,
 
-    getAmount: function () {
-        return this;
+    getCottageCheeseAmount: function () {
+        return this.cottageCheeseAmount;
     }
 };
 

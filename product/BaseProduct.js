@@ -1,16 +1,16 @@
 function BaseProduct(name, amount) {
-    this.name = name;
-    this.amount = amount;
+    this.baseProductName = name;
+    this.baseProductAmount = amount;
 }
 
 BaseProduct.prototype = {
     constructor: BaseProduct,
 
-    getName: function () {
-        return this.name;
+    getBaseProductName: function () {
+        return this.baseProductName;
     },
 
-    getAmount: function () {
-        return this.amount;
+    getBaseProductAmount: function () {
+        return this.baseProductAmount;
     }
 };

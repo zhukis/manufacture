@@ -4,7 +4,7 @@ var step1GlaszedCurd = function (milk) {
     // do something
     console.log("made");
 
-    return new CottageCheese(milk.getName(), milk.getAmount(), 100);
+    return new CottageCheese(milk.getBaseProductName(), milk.getBaseProductAmount(), 100);
 };
 
 var step2GlaszedCurd = function (cottageCheese) {
@@ -13,9 +13,9 @@ var step2GlaszedCurd = function (cottageCheese) {
     // do something
     console.log("made");
 
-    return new ChocolatedCheese(BaseProduct.prototype.getName.call(this),
-        BaseProduct.prototype.getAmount.call(this),
-        cottageCheese.getAmount(),
+    return new ChocolatedCheese(cottageCheese.getBaseProductName(),
+        cottageCheese.getBaseProductAmount(),
+        cottageCheese.getCottageCheeseAmount(),
         100);
 };
 

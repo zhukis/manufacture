@@ -3,16 +3,16 @@ function CoveredChocolatedCheese(baseProductName,
                                  cottageCheeseAmount,
                                  chocolateCheeseAmount,
                                  coveredCheeseAmount) {
-    ChocolatedCheese.apply(this, baseProductName, baseProductAmount, cottageCheeseAmount, chocolateCheeseAmount);
+    ChocolatedCheese.call(this, baseProductName, baseProductAmount, cottageCheeseAmount, chocolateCheeseAmount);
 
-    this.amount = coveredCheeseAmount;
+    this.coveredChocolatedCheeseAmount = coveredCheeseAmount;
 }
 
 CoveredChocolatedCheese.prototype = {
     constructor: CoveredChocolatedCheese,
 
-    getAmount: function () {
-        return this.amount;
+    getCoveredChocolatedCheeseAmount: function () {
+        return this.coveredChocolatedCheeseAmount;
     }
 };
 
