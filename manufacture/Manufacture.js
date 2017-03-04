@@ -14,7 +14,7 @@ Manufacture.prototype = {
             this._eventHandlers[activityName] = {};
             this._eventHandlers[activityName]["productAmount"] = 0;
             this._eventHandlers[activityName]["actions"] = [];
-            this.publish("Manufacture" + activityName + " created");
+            this.publish("Manufacture " + activityName + " created");
         }
 
         var self = this;
@@ -26,7 +26,7 @@ Manufacture.prototype = {
     run: function (activityName, baseProduct) {
         if (!(baseProduct instanceof BaseProduct)) throw new TypeError("Invalid object type");
 
-        this.publish("Manufacture" + activityName + " started at " + new Date());
+        this.publish("Manufacture " + activityName + " started at " + new Date());
         var obj = baseProduct;
         var self = this;
         _.forEach(this._eventHandlers[activityName]["actions"], function (item) {
@@ -34,7 +34,7 @@ Manufacture.prototype = {
         });
 
         this._eventHandlers[activityName]["productAmount"]++;
-        this.publish("Manufacture" + activityName + " finished at " + new Date());
+        this.publish("Manufacture " + activityName + " finished at " + new Date());
         this.publish("Amount of product in " + activityName + " is " + this._eventHandlers[activityName]["productAmount"]);
     }
 };
