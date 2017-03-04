@@ -5,10 +5,6 @@ describe("A spec using for checking observable objects", function () {
         observable = new Observable();
     });
 
-    afterEach(function () {
-        observable = null;
-    });
-
     it("is checks for presence of constructor", function () {
         expect(observable.constructor).toBeDefined();
     });

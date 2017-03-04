@@ -5,10 +5,6 @@ describe("A spec for checking manufacture functionality", function () {
         manufacture = new Manufacture();
     });
 
-    afterEach(function () {
-        manufacture = null;
-    });
-
     it("checks for presence of constructor", function () {
         expect(manufacture.constructor).toBeDefined();
     });
@@ -90,6 +86,18 @@ describe("A spec for checking manufacture functionality", function () {
         manufacture.run(activityName, milk);
 
         expect(manufacture._eventHandlers[activityName]["productAmount"]).toBeGreaterThan(0);
+
+        jasmine.clock().install();
+
+        setInterval(function () {
+            manufacture.run(activityName, milk);
+        }, 2000);
+
+        expect(manufacture.run).toHaveBeenCalledTimes(1);
+        jasmine.clock().tick(2001);
+        expect(manufacture.run).toHaveBeenCalledTimes(2);
+
+        jasmine.clock().uninstall();
     });
 
 });
