@@ -1,17 +1,7 @@
-function Observer() {
-    this.statistics = [];
-}
+function Observer(callback, eventType) {}
 
 Observer.prototype = {
     constructor: Observer,
 
-    add: function (data) {
-        this.statistics.push(data);
-    },
-
-    showStatistics: function () {
-        _.forEach(this.statistics, function (item) {
-            console.log(item);
-        });
-    }
+    next: function () {}
 };

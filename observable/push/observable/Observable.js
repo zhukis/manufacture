@@ -5,13 +5,15 @@ function Observable() {
 Observable.prototype = {
     constructor: Observable,
 
-    subscribe: function (observer) {
-        if ( !(observer instanceof Observer) ) throw new TypeError();
+    subscribe: function (callback, eventType) {
+        if ( (typeof callback) != "function" ) throw new TypeError();
 
         var self = this;
         if ( !_.some(self.subscribers, function (item) {
-                return item === observer;
+                return eventType in item;
             }) ) {
+            var observer = {};
+            observer[eventType] = callback;
             self.subscribers.push(observer);
         }
     },

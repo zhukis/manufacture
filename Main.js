@@ -52,5 +52,3 @@ var timerId = setTimeout(function runner() {
 
     timerId = setTimeout(runner, 5000);
 }, 100);
-
-observer.showStatistics();
