@@ -1,4 +1,4 @@
-function Observer(callback, eventType) {}
+function Observer(callback) {}
 
 Observer.prototype = {
     constructor: Observer,

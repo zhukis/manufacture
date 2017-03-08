@@ -1,19 +1,24 @@
 function Observable() {
-    this.subscribers = [];
+    this.subscribers = {};
 }
 
 Observable.prototype = {
     constructor: Observable,
 
-    subscribe: function (callback, eventType) {
+    subscribe: function (callback, event) {
         if ( (typeof callback) != "function" ) throw new TypeError();
 
+        if ( !(event in this.subscribers) ) {
+            this.subscribers[event] = [];
+        }
+
         var self = this;
-        if ( !_.some(self.subscribers, function (item) {
-                return eventType in item;
+        if ( !_.some(self.subscribers[event], function (item) {
+                return callback === item;
             }) ) {
+
             var observer = {};
-            observer[eventType] = callback;
+            observer[event] = callback;
             self.subscribers.push(observer);
         }
     },
