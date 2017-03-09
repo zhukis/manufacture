@@ -51,12 +51,9 @@ manufacture.subscribe(function (data) {
 var activityName = "GlazedCurd";
 manufacture.createActivity(activityName, step1, step2, step3);
 
-var milk = new BaseProduct("Milk", 5000);
-manufacture.run(activityName, milk);
+var timerId = setTimeout(function runner() {
+    var milk = new BaseProduct("Milk", 5000);
+    manufacture.run(activityName, milk);
 
-// var timerId = setTimeout(function runner() {
-//     var milk = new BaseProduct("Milk", 5000);
-//     manufacture.run(activityName, milk);
-//
-//     timerId = setTimeout(runner, 5000);
-// }, 100);
+    timerId = setTimeout(runner, 5000);
+}, 100);

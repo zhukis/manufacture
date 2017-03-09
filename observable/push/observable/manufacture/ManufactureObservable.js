@@ -13,12 +13,18 @@ ManufactureObservable.prototype = {
         }
 
         var self = this;
-        if ( !_.some(self.subscribers[event], function (item) {
-                return callback === item;
-            }) ) {
-
-            self.subscribers[event].push( new ManufactureObserver(callback) );
+        if ( !_.some(self.subscribers[event], function (item) { return callback === item; }) ) {
+            var observer = new ManufactureObserver(callback);
+            self.subscribers[event].push(observer);
+        } else {
+            return;
         }
+
+        var wrapper = function () {};
+
+        wrapper.unsubscribe = this.unsubscribe.bind(this, observer);
+
+        return wrapper;
     },
 
     unsubscribe: function (observer) {
