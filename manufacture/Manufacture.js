@@ -14,7 +14,6 @@ Manufacture.prototype = {
             this._eventHandlers[activityName] = {};
             this._eventHandlers[activityName]["productAmount"] = 0;
             this._eventHandlers[activityName]["actions"] = [];
-            this.publish("Manufacture " + activityName + " created");
         }
 
         var self = this;
@@ -26,17 +25,34 @@ Manufacture.prototype = {
     run: function (activityName, baseProduct) {
         if (!(baseProduct instanceof BaseProduct)) throw new TypeError("Invalid object type");
 
-        this.publish("Manufacture " + activityName + " started at " + new Date());
         var obj = baseProduct;
         var self = this;
-        _.forEach(this._eventHandlers[activityName]["actions"], function (item) {
+        _.forEach(this._eventHandlers[activityName]["actions"], function (item, i) {
             obj = item.call(self, obj);
+
+            if (i == 2) {
+                self.publish(obj.getBaseProductAmount(), "CREATED_PRODUCT_FROM_STEP_3");
+            }
         });
 
         this._eventHandlers[activityName]["productAmount"]++;
-        this.publish("Manufacture " + activityName + " finished at " + new Date());
-        this.publish("Amount of product in " + activityName + " is " + this._eventHandlers[activityName]["productAmount"]);
+
+        switch (this._eventHandlers[activityName]["actions"].length) {
+            case 1:
+                this.publish(obj.getBaseProductAmount(), "NEW_PRODUCT");
+                break;
+            case 2:
+                this.publish(obj.getCottageCheeseAmount(), "NEW_PRODUCT");
+                break;
+            case 3:
+                this.publish(obj.getChocolatedCheeseAmount(), "NEW_PRODUCT");
+                break;
+            case 4:
+                this.publish(obj.getChocolatedCheeseAmount(), "NEW_PRODUCT");
+                break;
+        }
+
     }
 };
 
-Manufacture.prototype = inherit(Observable.prototype, Manufacture.prototype);
+Manufacture.prototype = inherit(ManufactureObservable.prototype, Manufacture.prototype);

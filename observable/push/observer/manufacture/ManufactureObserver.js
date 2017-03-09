@@ -1,7 +1,6 @@
-function ManufactureObserver(callback, eventType) {
+function ManufactureObserver(callback) {
     Observer.apply(this, arguments);
     this.callback = callback;
-    this.eventType = eventType;
 }
 
 ManufactureObserver.prototype = {
