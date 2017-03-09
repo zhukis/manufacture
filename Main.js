@@ -39,21 +39,23 @@ var step3 = function (chocolatedCottageCheese) {
 };
 
 var manufacture = new Manufacture();
-
-manufacture.subscribe(function (data) {
+debugger;
+var param = manufacture.subscribe(function (data) {
     console.log("New product " + data + " created.");
 }, "NEW_PRODUCT");
 
-manufacture.subscribe(function (data) {
-    console.log("Created product from step 3 created. Base product amount = " + data);
-}, "CREATED_PRODUCT_FROM_STEP_3");
+param.unsubscribe();
 
-var activityName = "GlazedCurd";
-manufacture.createActivity(activityName, step1, step2, step3);
-
-var timerId = setTimeout(function runner() {
-    var milk = new BaseProduct("Milk", 5000);
-    manufacture.run(activityName, milk);
-
-    timerId = setTimeout(runner, 5000);
-}, 100);
+// manufacture.subscribe(function (data) {
+//     console.log("Created product from step 3 created. Base product amount = " + data);
+// }, "CREATED_PRODUCT_FROM_STEP_3");
+//
+// var activityName = "GlazedCurd";
+// manufacture.createActivity(activityName, step1, step2, step3);
+//
+// var timerId = setTimeout(function runner() {
+//     var milk = new BaseProduct("Milk", 5000);
+//     manufacture.run(activityName, milk);
+//
+//     timerId = setTimeout(runner, 5000);
+// }, 100);

@@ -30,10 +30,14 @@ ManufactureObservable.prototype = {
     unsubscribe: function (observer) {
         if ( !(observer instanceof Observer) ) throw new TypeError();
 
-        for (var i = 0; i < this.subscribers.length; i++) {
-            if (this.subscribers[i] === observer) {
-                this.subscribers.splice(i, 1);
-                return;
+        for (var property in this.subscribers) {
+            if ( this.subscribers.hasOwnProperty(property) ) {
+                for (var i = 0; i < this.subscribers[property].length; i++) {
+                    if (this.subscribers[property][i] === observer) {
+                        this.subscribers[property].splice(i, 1);
+                        return;
+                    }
+                }
             }
         }
     },
