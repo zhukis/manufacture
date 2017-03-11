@@ -20,11 +20,10 @@ ManufactureObservable.prototype = {
             return;
         }
 
-        var wrapper = function () {};
+        var manufactorySubscription = new ManufactorySubscription();
+        manufactorySubscription.setSubscription( this.unsubscribe.bind(this, observer) );
 
-        wrapper.unsubscribe = this.unsubscribe.bind(this, observer);
-
-        return wrapper;
+        return manufactorySubscription;
     },
 
     unsubscribe: function (observer) {

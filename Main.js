@@ -44,7 +44,13 @@ var param = manufacture.subscribe(function (data) {
     console.log("New product " + data + " created.");
 }, "NEW_PRODUCT");
 
-param.unsubscribe();
+var param2 = manufacture.subscribe(function (data) {
+    console.log("New product " + data + " created.");
+}, "NEW_PRODUCT");
+
+param.add(param2);
+
+param2.unsubscribe();
 
 // manufacture.subscribe(function (data) {
 //     console.log("Created product from step 3 created. Base product amount = " + data);
