@@ -37,7 +37,7 @@ var step3 = function (chocolatedCottageCheese) {
         chocolatedCottageCheese.getChocolatedCheeseAmount(),
         500);
 };
-debugger;
+
 var manufacture = new Manufacture();
 
 var param = manufacture.subscribe(function (data) {

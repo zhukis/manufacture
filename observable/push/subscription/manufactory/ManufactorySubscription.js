@@ -25,6 +25,8 @@ ManufactorySubscription.prototype = {
         _.forEach(this.bindedSubscriptions, function (item) {
             item.unsubscribe();
         });
+
+        this.bindedSubscriptions.length = 0;
     },
 
     add: function (subscription) {

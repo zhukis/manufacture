@@ -14,43 +14,59 @@ describe("A spec for checking manufacture functionality", function () {
     });
 
     it("checks observer", function () {
-        var observer = new Observer();
         var publishMessage = "Preparing";
+        var event = "NEW_OBJECT";
+        var callback1 = function (data) {
+            return "data " + data;
+        };
+        var callback2 = function (data) {
+            return "data2 " + data;
+        };
 
         spyOn(manufacture, 'subscribe').and.callThrough();
         spyOn(manufacture, 'publish').and.callThrough();
         spyOn(manufacture, 'unsubscribe').and.callThrough();
-        spyOn(observer, 'add').and.callThrough();
 
-        manufacture.subscribe(observer);
+        var subscription1 = manufacture.subscribe(callback1, event);
+        var subscription2 = manufacture.subscribe(callback2, event);
+
+        spyOn(subscription1, 'add').and.callThrough();
+        spyOn(subscription2, 'add').and.callThrough();
+        spyOn(subscription1, 'unsubscribe').and.callThrough();
+        spyOn(subscription2, 'unsubscribe').and.callThrough();
+
+        subscription1.add(subscription2);
         expect(manufacture.subscribe).toHaveBeenCalled();
-        expect(manufacture.subscribe).toHaveBeenCalledTimes(1);
-        expect(manufacture.subscribe).toHaveBeenCalledWith(jasmine.objectContaining({statistics: []}));
+        expect(manufacture.subscribe).toHaveBeenCalledTimes(2);
+        expect(manufacture.subscribe).toHaveBeenCalledWith(callback1, event);
 
-        manufacture.publish(publishMessage);
+        manufacture.publish(publishMessage, event);
         expect(manufacture.publish).toHaveBeenCalled();
         expect(manufacture.publish).toHaveBeenCalledTimes(1);
-        expect(manufacture.publish).toHaveBeenCalledWith(publishMessage);
-        expect(observer.statistics).toEqual(jasmine.arrayContaining([publishMessage]));
-        expect(observer.add).toHaveBeenCalled();
+        expect(manufacture.publish).toHaveBeenCalledWith(publishMessage, event);
 
-        manufacture.unsubscribe(observer);
+        subscription2.unsubscribe();
         expect(manufacture.unsubscribe).toHaveBeenCalled();
-        expect(manufacture.unsubscribe).toHaveBeenCalledTimes(1);
-        expect(manufacture.unsubscribe).toHaveBeenCalledWith(jasmine.objectContaining({statistics: [publishMessage]}));
-
+        expect(manufacture.unsubscribe).toHaveBeenCalledTimes(2);
+        expect(subscription1.unsubscribe).toHaveBeenCalledTimes(1);
+        expect(subscription2.unsubscribe).toHaveBeenCalledTimes(1);
         expect(manufacture.subscribers).toEqual(jasmine.arrayContaining([]));
     });
 
     it("checks manufacture creations with observer", function () {
-        var observer = new Observer();
+        var event = "NEW_PRODUCT";
+        var thirdProductEvent = "CREATED_PRODUCT_FROM_STEP_3";
+        var callback = function (data) {
+            return "data " + data;
+        };
         var activityName = "CoveredGlazedCurd";
-        var publishMessage = "Manufacture " + activityName + " created";
 
         spyOn(manufacture, 'createActivity').and.callThrough();
         spyOn(manufacture, 'run').and.callThrough();
 
-        manufacture.subscribe(observer);
+        var subscription = manufacture.subscribe(callback, event);
+        var subscription2 = manufacture.subscribe(callback, thirdProductEvent);
+        subscription.add(subscription2);
 
         var step1 = function (milk) {
             if (!(milk instanceof BaseProduct)) throw new TypeError();
@@ -80,7 +96,7 @@ describe("A spec for checking manufacture functionality", function () {
         manufacture.createActivity(activityName, step1, step2, step3);
 
         expect(manufacture.createActivity).toHaveBeenCalledTimes(1);
-        expect(observer.statistics).toEqual(jasmine.arrayContaining([publishMessage]));
+        expect(subscription.subscription).not.toBeNull();
 
         var milk = new BaseProduct("Milk", 10);
         manufacture.run(activityName, milk);
