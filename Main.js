@@ -37,9 +37,9 @@ var step3 = function (chocolatedCottageCheese) {
         chocolatedCottageCheese.getChocolatedCheeseAmount(),
         500);
 };
-
-var manufacture = new Manufacture();
 debugger;
+var manufacture = new Manufacture();
+
 var param = manufacture.subscribe(function (data) {
     console.log("New product " + data + " created.");
 }, "NEW_PRODUCT");
@@ -52,16 +52,16 @@ param.add(param2);
 
 param2.unsubscribe();
 
-// manufacture.subscribe(function (data) {
-//     console.log("Created product from step 3 created. Base product amount = " + data);
-// }, "CREATED_PRODUCT_FROM_STEP_3");
-//
-// var activityName = "GlazedCurd";
-// manufacture.createActivity(activityName, step1, step2, step3);
-//
-// var timerId = setTimeout(function runner() {
-//     var milk = new BaseProduct("Milk", 5000);
-//     manufacture.run(activityName, milk);
-//
-//     timerId = setTimeout(runner, 5000);
-// }, 100);
+manufacture.subscribe(function (data) {
+    console.log("Created product from step 3 created. Base product amount = " + data);
+}, "CREATED_PRODUCT_FROM_STEP_3");
+
+var activityName = "GlazedCurd";
+manufacture.createActivity(activityName, step1, step2, step3);
+
+var timerId = setTimeout(function runner() {
+    var milk = new BaseProduct("Milk", 5000);
+    manufacture.run(activityName, milk);
+
+    timerId = setTimeout(runner, 5000);
+}, 100);

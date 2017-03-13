@@ -12,10 +12,18 @@ ManufactorySubscription.prototype = {
         this.subscription();
 
         var self = this;
+
         _.forEach(this.bindedSubscriptions, function (item) {
-            if (self != item) {
-                item.unsubscribe();
+            for (var i = 0; i < item.bindedSubscriptions.length; i++) {
+                if (item.bindedSubscriptions[i] == self) {
+                    item.bindedSubscriptions.splice(i, 1);
+                    break;
+                }
             }
+        });
+
+        _.forEach(this.bindedSubscriptions, function (item) {
+            item.unsubscribe();
         });
     },
 
