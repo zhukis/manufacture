@@ -23,7 +23,7 @@
             return false;
 
         } else {
-            arr.some(callback);
+            return arr.some(callback);
         }
     };
 
