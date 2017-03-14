@@ -6,6 +6,7 @@ function CoveredChocolatedCheese(baseProductName,
     ChocolatedCheese.call(this, baseProductName, baseProductAmount, cottageCheeseAmount, chocolateCheeseAmount);
 
     this.coveredChocolatedCheeseAmount = coveredCheeseAmount;
+    this.className = "CoveredChocolatedCheese";
 }
 
 CoveredChocolatedCheese.prototype = {
@@ -13,6 +14,10 @@ CoveredChocolatedCheese.prototype = {
 
     getCoveredChocolatedCheeseAmount: function () {
         return this.coveredChocolatedCheeseAmount;
+    },
+
+    getClassName: function () {
+        return this.className;
     }
 };
 

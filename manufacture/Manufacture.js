@@ -22,36 +22,24 @@ Manufacture.prototype = {
         });
     },
 
-    run: function (activityName, baseProduct) {
-        if (!(baseProduct instanceof BaseProduct)) throw new TypeError("Invalid object type");
-
-        var obj = baseProduct;
+    run: function (activityName, product) {
+        var obj = product;
         var self = this;
         _.forEach(this._eventHandlers[activityName]["actions"], function (item, i) {
+            if ( !_.some(item.requiredParamsType, function (requiredType) {return obj instanceof requiredType;}) ) {
+                throw new TypeError();
+            }
+
             obj = item.call(self, obj);
 
             if (i == 2) {
-                self.publish(obj.getBaseProductAmount(), "CREATED_PRODUCT_FROM_STEP_3");
+                self.publish(obj.getClassName(), "CREATED_PRODUCT_FROM_STEP_3");
             }
         });
 
         this._eventHandlers[activityName]["productAmount"]++;
 
-        switch (this._eventHandlers[activityName]["actions"].length) {
-            case 1:
-                this.publish(obj.getBaseProductAmount(), "NEW_PRODUCT");
-                break;
-            case 2:
-                this.publish(obj.getCottageCheeseAmount(), "NEW_PRODUCT");
-                break;
-            case 3:
-                this.publish(obj.getChocolatedCheeseAmount(), "NEW_PRODUCT");
-                break;
-            case 4:
-                this.publish(obj.getChocolatedCheeseAmount(), "NEW_PRODUCT");
-                break;
-        }
-
+        this.publish(obj.getClassName(), "NEW_PRODUCT");
     }
 };
 

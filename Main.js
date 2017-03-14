@@ -1,19 +1,11 @@
-var step1 = function (milk) {
-    if ( !(milk instanceof BaseProduct) ) {
-        throw new TypeError("Invalid type of object. BaseProduct type expected.");
-    }
-
+var step1 = conveyor(function (milk) {
     // do something
     console.log("doing CottageCheese");
 
     return new CottageCheese(milk.getBaseProductName(), milk.getBaseProductAmount(), 100);
-};
+}, BaseProduct);
 
-var step2 = function (cottageCheese) {
-    if ( !(cottageCheese instanceof CottageCheese) ) {
-        throw new TypeError("Invalid type of object. CottageCheese type expected.");
-    }
-
+var step2 = conveyor(function (cottageCheese) {
     // do something
     console.log("doing chocolated CottageCheese");
 
@@ -21,13 +13,9 @@ var step2 = function (cottageCheese) {
         cottageCheese.getBaseProductAmount(),
         cottageCheese.getCottageCheeseAmount(),
         300);
-};
+}, CottageCheese);
 
-var step3 = function (chocolatedCottageCheese) {
-    if ( !(chocolatedCottageCheese instanceof ChocolatedCheese) ){
-        throw new TypeError("Invalid type of object. ChocolatedCheese type expected.");
-    }
-
+var step3 = conveyor(function (chocolatedCottageCheese) {
     // do something
     console.log("doing CoveredChocolatedCheese");
 
@@ -36,7 +24,47 @@ var step3 = function (chocolatedCottageCheese) {
         chocolatedCottageCheese.getCottageCheeseAmount(),
         chocolatedCottageCheese.getChocolatedCheeseAmount(),
         500);
-};
+}, ChocolatedCheese);
+
+// var step1 = function (milk) {
+//     if ( !(milk instanceof BaseProduct) ) {
+//         throw new TypeError("Invalid type of object. BaseProduct type expected.");
+//     }
+//
+//     // do something
+//     console.log("doing CottageCheese");
+//
+//     return new CottageCheese(milk.getBaseProductName(), milk.getBaseProductAmount(), 100);
+// };
+
+// var step2 = function (cottageCheese) {
+//     if ( !(cottageCheese instanceof CottageCheese) ) {
+//         throw new TypeError("Invalid type of object. CottageCheese type expected.");
+//     }
+//
+//     // do something
+//     console.log("doing chocolated CottageCheese");
+//
+//     return new ChocolatedCheese(cottageCheese.getBaseProductName(),
+//         cottageCheese.getBaseProductAmount(),
+//         cottageCheese.getCottageCheeseAmount(),
+//         300);
+// };
+
+// var step3 = function (chocolatedCottageCheese) {
+//     if ( !(chocolatedCottageCheese instanceof ChocolatedCheese) ){
+//         throw new TypeError("Invalid type of object. ChocolatedCheese type expected.");
+//     }
+//
+//     // do something
+//     console.log("doing CoveredChocolatedCheese");
+//
+//     return new CoveredChocolatedCheese(chocolatedCottageCheese.getBaseProductName(),
+//         chocolatedCottageCheese.getBaseProductAmount(),
+//         chocolatedCottageCheese.getCottageCheeseAmount(),
+//         chocolatedCottageCheese.getChocolatedCheeseAmount(),
+//         500);
+// };
 
 var manufacture = new Manufacture();
 
@@ -53,7 +81,7 @@ param.add(param2);
 param2.unsubscribe();
 
 manufacture.subscribe(function (data) {
-    console.log("Created product from step 3 created. Base product amount = " + data);
+    console.log("Created product" + data + " from step 3 created.");
 }, "CREATED_PRODUCT_FROM_STEP_3");
 
 var activityName = "GlazedCurd";
