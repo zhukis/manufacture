@@ -1,6 +1,6 @@
 function conveyor(callback) {
-    function wrapper() {
-        callback();
+    function wrapper(param) {
+        return callback(param);
     }
 
     wrapper.requiredParamsType = [];
