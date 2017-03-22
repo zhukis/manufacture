@@ -32,9 +32,7 @@ Manufacture.prototype = {
 
             obj = item.call(self, obj);
 
-            if (i == 2) {
-                self.publish(obj.getClassName(), "CREATED_PRODUCT_FROM_STEP_3");
-            }
+            self.publish(obj.getClassName(), "CREATED_PARTIAL_PRODUCT");
         });
 
         this._eventHandlers[activityName]["productAmount"]++;

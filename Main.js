@@ -41,8 +41,8 @@ param.add(param2);
 param2.unsubscribe();
 
 manufacture.subscribe(function (data) {
-    console.log("Created product" + data + " from step 3 created.");
-}, "CREATED_PRODUCT_FROM_STEP_3");
+    console.log("Created product" + data);
+}, "CREATED_PARTIAL_PRODUCT");
 
 var activityName = "GlazedCurd";
 manufacture.createActivity(activityName, step1, step2, step3);
