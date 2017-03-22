@@ -68,37 +68,31 @@ describe("A spec for checking manufacture functionality", function () {
         var subscription2 = manufacture.subscribe(callback, thirdProductEvent);
         subscription.add(subscription2);
 
-        var step1 = function (milk) {
-            if (!(milk instanceof BaseProduct)) throw new TypeError();
-
+        var step1 = conveyor(function (milk) {
             return new CottageCheese(milk.getBaseProductName(), milk.getBaseProductAmount(), 100);
-        };
+        }, BaseProduct);
 
-        var step2 = function (cottageCheese) {
-            if (!(cottageCheese instanceof CottageCheese)) throw new TypeError();
-
+        var step2 = conveyor(function (cottageCheese) {
             return new ChocolatedCheese(cottageCheese.getBaseProductName(),
                 cottageCheese.getBaseProductAmount(),
                 cottageCheese.getCottageCheeseAmount(),
                 200);
-        };
+        }, CottageCheese);
 
-        var step3 = function (chocolatedProduct) {
-            if ( !(chocolatedProduct instanceof ChocolatedCheese) ) throw new TypeError();
-
+        var step3 = conveyor(function (chocolatedProduct) {
             return new CoveredChocolatedCheese(chocolatedProduct.getBaseProductName(),
                 chocolatedProduct.getBaseProductAmount(),
                 chocolatedProduct.getCottageCheeseAmount(),
                 chocolatedProduct.getChocolatedCheeseAmount(),
                 300);
-        };
+        }, ChocolatedCheese);
 
         manufacture.createActivity(activityName, step1, step2, step3);
 
         expect(manufacture.createActivity).toHaveBeenCalledTimes(1);
         expect(subscription.subscription).not.toBeNull();
 
-        var milk = new BaseProduct("Milk", 10);
+        var milk = new BaseProduct("Milk", 200);
         manufacture.run(activityName, milk);
 
         expect(manufacture._eventHandlers[activityName]["productAmount"]).toBeGreaterThan(0);
